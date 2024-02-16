@@ -18,4 +18,16 @@ class ClientStorage {
     static clearCurrentUser() {
         localStorage.removeItem("SBPortfolio-userData");
     }
+
+    // ---------------------------
+    // --- CATEGORIES STORAGE ---
+    // ---------------------------
+
+    static setCategories(jsonCategories) {
+        localStorage.setItem("SBPortfolio-categories", JSON.stringify(jsonCategories));
+    }
+
+    static getCategories() {
+        return JSON.parse(localStorage.getItem("SBPortfolio-categories"))
+    }
 }
