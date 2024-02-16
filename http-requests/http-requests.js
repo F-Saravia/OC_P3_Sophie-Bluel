@@ -119,4 +119,32 @@ class HTTPRequests {
                 return response.json();
             })
     }
+
+    static #assignErrorMessage_deleteWork(status) {
+        const message = {
+            "401": "Vous n'est pas authorisé à supprimer des projets de la galerie"
+        }
+        return message[status] ?? "Suppression d'un projet: erreur inattendue. \nVeuillez ressayer ultérieurement.";
+    }
+
+    static async deleteWork(workId, userToken) {
+        return fetch(
+            routes["delete-work"](workId),
+            {
+                method: "DELETE",
+                headers: {
+                    'Authorization': `Bearer ${userToken}`
+                }
+            }
+        )
+            .then(response => {
+                if (!response.ok) {
+                    throw new CodedError(
+                        response.status,
+                        HTTPRequests.#assignErrorMessage_deleteWork(response.status)
+                    )
+                }
+                return true;
+            })
+    }
 }
