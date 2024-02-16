@@ -41,4 +41,27 @@ class HTTPRequests {
             })
     }
 
+    // ---------------------------
+    // --- CATEGORIES REQUESTS ---
+    // ---------------------------
+    static #assignErrorMessage_getCategories(status) {
+        const message = {
+            "401": "Vous n'êtes pas authorisé `acceder à cette ressource",
+            "404": "Ressource introuvable."
+        }
+        return message[status] ?? "Chargement des catégories: erreur inattendue.\n Veuillez ressayer ultérieurement.";
+    }
+
+    static async getCategories() {
+        return fetch(routes["get-categories"]())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new CodedError(
+                        response.status,
+                        HTTPRequests.#assignErrorMessage_getCategories(response.status)
+                    );
+                }
+                return response.json()
+            })
+    }
 }
