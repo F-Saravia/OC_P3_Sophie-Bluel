@@ -30,4 +30,31 @@ class ClientStorage {
     static getCategories() {
         return JSON.parse(localStorage.getItem("SBPortfolio-categories"))
     }
+
+    // ---------------------------
+    // --- WORKS STORAGE ---
+    // ---------------------------
+
+    static setWorks(works) {
+        localStorage.setItem("SBPortfolio-works", JSON.stringify(works))
+    }
+
+    static getWorks() {
+        return JSON.parse(localStorage.getItem("SBPortfolio-works"))
+    }
+
+    // TO-DO: improve add logic...¿¿direct string manipulation??
+    static addWork(jsonWork) {
+        const works = ClientStorage.getWorks();
+        works.push(jsonWork);
+        ClientStorage.setWorks(works);
+    }
+
+    // TO-DO: improve delete logic...¿?
+    static deleteWork(workId) {
+        const works = ClientStorage.getWorks();
+        ClientStorage.setWorks(
+            works.filter(work => work.id != workId)
+        );
+    }
 }
