@@ -21,9 +21,15 @@ if (UsersManager.isLogged()) {
         const deleteWorkBtns = document.querySelectorAll(".btn-delete-work");
         deleteWorkBtns.forEach(deleteBtn => {
             deleteBtn.addEventListener("click", async event => {
-
-                displayPopoverInfoMessage("Projet supprimé avec succès")
-
+                const workId = deleteBtn.dataset.workid
+                try {
+                    await WorksManager.deleteWork(workId)
+                    displayPopoverInfoMessage("Projet supprimé avec succès")
+                    await helper_updateModalGallery();
+                    await helper_updatePortfolioGallery();
+                } catch (error) {
+                    console.error('Error: ', error);
+                }
             })
         })
     }
