@@ -11,12 +11,18 @@ class HTTPRequests {
     // ---------------------------
     // --- USERS REQUESTS ---
     // ---------------------------
+
+    /* LOGIN FUNCTIONS:
+     *  - private function: assign messages to api errors
+     *  - http request
+     */
+
     static #assignErrorMessage_login(status) {
         const message = {
             "401": "Compte introuvable ou non authorisé.\nVérifiez votre adresse mail ou mot de passe s'il vous plaît",
             "404": "Compte introuvable ou non authorisé.\nVérifiez votre adresse mail ou mot de passe s'il vous plaît"
         }
-        return message[status] ?? "Connexion utilisateur: erreur inattendue. Veuillez ressayer ultérieurement.";
+        return message[status] ?? "Connexion utilisateur: erreur inattendue.\n Veuillez ressayer ultérieurement.";
     }
 
     static async login(jsonUserEmailAndPassword) {
@@ -44,9 +50,15 @@ class HTTPRequests {
     // ---------------------------
     // --- CATEGORIES REQUESTS ---
     // ---------------------------
+
+    /* GET CATEGORIES FUNCTIONS:
+     *  - private function: assign messages to api errors
+     *  - http request
+     */
+
     static #assignErrorMessage_getCategories(status) {
         const message = {
-            "401": "Vous n'êtes pas authorisé `acceder à cette ressource",
+            "401": "Vous n'êtes pas authorisé à acceder à cette ressource",
             "404": "Ressource introuvable."
         }
         return message[status] ?? "Chargement des catégories: erreur inattendue.\n Veuillez ressayer ultérieurement.";
@@ -68,12 +80,18 @@ class HTTPRequests {
     // ---------------------------
     // ---  WORKS REQUESTS ---
     // ---------------------------
+
+    /* GET WORKS FUNCTIONS:
+     *  - private function: assign messages to api errors
+     *  - http request
+     */
+
     static #assignErrorMessage_getWorks(status) {
         const message = {
-            "401": "Vous n'êtes pas authorisé `acceder à cette ressource",
+            "401": "Vous n'êtes pas authorisé à acceder à cette ressource",
             "404": "Ressource introuvable."
         }
-        return message[status] ?? "Chargement des projets: erreur inattendue. Veuillez ressayer ultérieurement.";
+        return message[status] ?? "Chargement des projets: erreur inattendue.\n Veuillez ressayer ultérieurement.";
     }
 
     static async getWorks() {
@@ -90,12 +108,16 @@ class HTTPRequests {
 
     }
 
+    /* ADD WORKS FUNCTIONS:
+     *  - private function: assign messages to api errors
+     *  - http request
+     */
     static #assignErrorMessage_addWork(status) {
         const message = {
             "400": "Erreur dans  la saisie.\n Veuillez vérifier  les champs s'il vous plaît.",
             "401": "Vous n'est pas authorisé à ajouter des projets à la galerie"
         }
-        return message[status] ?? "Ajout d'un projet: erreur inattendue.\nVeuillez ressayer ultérieurement.";
+        return message[status] ?? "Ajout d'un projet: erreur inattendue.\n Veuillez ressayer ultérieurement.";
     }
 
     static async addWork(formData, userToken) {
@@ -120,11 +142,16 @@ class HTTPRequests {
             })
     }
 
+    /* DELETE WORKS FUNCTIONS:
+     *  - private function: assign messages to api errors
+     *  - http request
+     */
+
     static #assignErrorMessage_deleteWork(status) {
         const message = {
             "401": "Vous n'est pas authorisé à supprimer des projets de la galerie"
         }
-        return message[status] ?? "Suppression d'un projet: erreur inattendue. \nVeuillez ressayer ultérieurement.";
+        return message[status] ?? "Suppression d'un projet: erreur inattendue.\n Veuillez ressayer ultérieurement.";
     }
 
     static async deleteWork(workId, userToken) {
