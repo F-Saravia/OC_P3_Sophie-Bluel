@@ -64,4 +64,29 @@ class HTTPRequests {
                 return response.json()
             })
     }
+
+    // ---------------------------
+    // ---  WORKS REQUESTS ---
+    // ---------------------------
+    static #assignErrorMessage_getWorks(status) {
+        const message = {
+            "401": "Vous n'êtes pas authorisé `acceder à cette ressource",
+            "404": "Ressource introuvable."
+        }
+        return message[status] ?? "Chargement des projets: erreur inattendue. Veuillez ressayer ultérieurement.";
+    }
+
+    static async getWorks() {
+        return fetch(routes["get-works"]())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new CodedError(
+                        response.status,
+                        HTTPRequests.#assignErrorMessage_getWorks(response.status)
+                    );
+                }
+                return response.json()
+            })
+
+    }
 }
