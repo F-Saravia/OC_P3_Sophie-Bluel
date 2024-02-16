@@ -29,6 +29,33 @@
 **** Portfolio Section ****
 **************************/
 
+.portfolio__header {
+  display: flex;
+  margin: 2rem 0;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-logged-in {
+  flex-direction: row;
+}
+
+.user-logged-out {
+  flex-direction: column;
+}
+
+.filters-container {
+  display: flex;
+  gap: 1em;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#show-gallery-modal {
+  background-color: transparent;
+}
+
 .gallery {
   width: 100%;
   display: grid;
