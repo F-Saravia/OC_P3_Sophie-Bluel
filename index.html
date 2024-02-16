@@ -33,6 +33,9 @@
     <link
       rel="stylesheet"
       href="./assets/index.css" />
+    <link
+      rel="stylesheet"
+      href="./assets/modal-gallery.css" />
 
     <!-- Scripts Utilitaire -->
     <script src="./tools.js"></script>
@@ -58,11 +61,17 @@
     <script
       defer
       src="./dom-updaters/index-updaters.js"></script>
+    <script
+      defer
+      src="./dom-updaters/modals-updaters.js"></script>
 
     <!-- Scripts Interactions utilisateurs-->
     <script
       defer
       src="./dom-interactions/index.js"></script>
+    <script
+      defer
+      src="./dom-interactions/modals.js"></script>
   </head>
 
   <body>
@@ -155,5 +164,88 @@
         </ul>
       </nav>
     </footer>
+
+    <!-- MODALS  -->
+    <div class="modals">
+      <!-- MODAL : Gallery -->
+      <dialog
+        id="gallery-modal"
+        class="modal-view">
+        <div class="modal-container">
+          <!-- Gallery-modal: header -->
+          <header class="modal-header">
+            <nav class="modal-nav">
+              <ul>
+                <li>
+                  <button class="modal-nav-btn close-all-modals">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </header>
+
+          <!-- Gallery-modal: title -->
+          <h2 class="modal-title">Galerie photo</h2>
+
+          <!-- Gallery-modal: content (gallery) -->
+          <div class="modal-content">
+            <!-- Gallery-modal, content : gallery populated  by JS in /dom-updaters/homepage-updaters.js -->
+            <div class="gallery modal-gallery-container">
+              <figure>
+                <img
+                  loading="lazy"
+                  src="./assets/images/abajour-tahina.png"
+                  alt="Abajour Tahina" />
+                <button
+                  class="btn-delete-work"
+                  data-workid="0">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </figure>
+            </div>
+            <hr class="divider" />
+            <button
+              class="showModal-addPhoto button-large button-green"
+              type="button">
+              Ajouter une photo
+            </button>
+          </div>
+        </div>
+      </dialog>
+
+      <!-- MODAL : Add Photo -->
+      <dialog
+        id="addPhoto-modal"
+        class="modal-view">
+        <div class="modal-container">
+          <!-- AddPhoto-modal: header -->
+          <header class="modal-header">
+            <nav class="modal-nav">
+              <ul>
+                <li>
+                  <button class="modal-nav-btn closeModal-addPhoto">
+                    <i class="fa-solid fa-arrow-left"></i>
+                  </button>
+                </li>
+                <li>
+                  <button class="modal-nav-btn close-all-modals">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </header>
+
+          <!-- AddPhoto-modal: title -->
+          <h2 class="modal-title">Ajout photo</h2>
+
+          <!-- AddPhoto-modal: content (form) -->
+          <div class="modal-content">
+            <!-- TODO: form -->
+          </div>
+        </div>
+      </dialog>
+    </div>
   </body>
 </html>
