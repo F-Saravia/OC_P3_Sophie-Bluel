@@ -89,4 +89,34 @@ class HTTPRequests {
             })
 
     }
+
+    static #assignErrorMessage_addWork(status) {
+        const message = {
+            "400": "Erreur dans  la saisie.\n Veuillez vérifier  les champs s'il vous plaît.",
+            "401": "Vous n'est pas authorisé à ajouter des projets à la galerie"
+        }
+        return message[status] ?? "Ajout d'un projet: erreur inattendue.\nVeuillez ressayer ultérieurement.";
+    }
+
+    static async addWork(formData, userToken) {
+        return fetch(
+            routes['post-work'](),
+            {
+                method: "POST",
+                headers: {
+                    'Authorization': `Bearer ${userToken}`
+                },
+                body: formData
+            }
+        )
+            .then(response => {
+                if (!response.ok) {
+                    throw new CodedError(
+                        response.status,
+                        HTTPRequests.#assignErrorMessage_addWork(response.status)
+                    )
+                }
+                return response.json();
+            })
+    }
 }
