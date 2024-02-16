@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sophie Bluel - Architecte d'intérieur</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
+      rel="stylesheet" />
+    <meta
+      name="description"
+      content="" />
+
+    <!-- Styles -->
+    <link
+      rel="stylesheet"
+      href="./assets/style.css" />
+    <link
+      rel="stylesheet"
+      href="./assets/login.css" />
+
+    <!-- Scripts Utilitaire -->
+    <script src="./tools.js"></script>
+
+    <!-- Scripts Communication Back-End -->
+    <script src="./http-requests/http-requests.js"></script>
+
+    <!-- Scripts Stockage Client -->
+    <script src="./clientside-storage/clientside-storage.js"></script>
+
+    <!-- Scripts Coordination entre backend/localStorage/pages -->
+    <script
+      defer
+      src="./coordination/users-manager.js"></script>
+
+    <!-- Scripts Mise à jour de la page -->
+    <script
+      defer
+      src="./dom-updaters/login-updaters.js"></script>
+
+    <!-- Scripts Interactions utilisateurs-->
+    <script
+      defer
+      src="./dom-interactions/login.js"></script>
+  </head>
+  <body>
+    <div class="main-container">
+      <header>
+        <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+        <nav>
+          <ul>
+            <li>projets</li>
+            <li>contact</li>
+            <li id="login-logout">login</li>
+            <li>
+              <img
+                src="./assets/icons/instagram.png"
+                alt="Instagram" />
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <section class="login">
+          <h1>Log In</h1>
+          <p
+            id="login-errorMessage"
+            class="error-message"></p>
+          <form id="login-form">
+            <label for="email-input">E-mail</label>
+            <input
+              required
+              id="email-input"
+              type="email"
+              value="sophie.bluel@test.tld" />
+            <label for="password-input">Mot de passe</label>
+            <input
+              required
+              id="password-input"
+              type="password"
+              value="S0phie" />
+            <input
+              class="button-large button-green"
+              type="submit"
+              value="Se connecter" />
+          </form>
+          <a href="#">Mot de passe oublié</a>
+        </section>
+      </main>
+      <footer>
+        <nav>
+          <ul>
+            <li>Mentions Légales</li>
+          </ul>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

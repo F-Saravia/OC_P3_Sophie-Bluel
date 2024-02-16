@@ -184,6 +184,21 @@ footer nav ul {
   margin: 2em;
 }
 
+/**********************
+**** utils classes ****
+**********************/
+
+.error-message {
+  display: none;
+  text-align: center;
+  line-height: 1.5;
+  color: #b1663c;
+  padding: 1.25rem;
+  border: 2px solid #b1663c;
+  border-radius: 1rem;
+  background-color: #b1663c1a;
+}
+
 /****************
 **** Buttons ****
 ****************/

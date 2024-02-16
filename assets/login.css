@@ -1,0 +1,58 @@
+.main-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fffef8;
+}
+
+.main-container main {
+  box-sizing: border-box;
+  flex: 1;
+}
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login :is(h1, a) {
+  color: #1d6154;
+  margin-bottom: 2rem;
+}
+#login-errorMessage {
+  margin-bottom: 2rem;
+}
+
+#login-errorMessage::first-line {
+  font-weight: 700;
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+#login-form label {
+  margin-bottom: 0.5em;
+}
+
+#login-form input {
+  font-size: 1.15rem;
+  padding: 0.75em;
+  width: 23rem;
+  border: none;
+  box-shadow: 0rem 0.25rem 0.8rem 0rem rgba(0, 0, 0, 0.15);
+  margin-bottom: 2em;
+}
+
+#login-form input:focus {
+  outline: 1px solid #1d6154;
+}
+
+.main-container footer {
+  width: 100%;
+  text-align: center;
+  background-color: white;
+}
