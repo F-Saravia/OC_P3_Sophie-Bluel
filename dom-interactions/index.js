@@ -1,4 +1,5 @@
 async function onPageLoad() {
+    onLoad_updatePageHeader(); //depends if user is logged in or not. (index-updaters.js)
     await onLoad_updatePortfolioHeader(); //depends if user is logged in or not. (index-updaters.js)
     await helper_updatePortfolioGallery(); //fetch from api works to display. (index-updaters.js)
 }

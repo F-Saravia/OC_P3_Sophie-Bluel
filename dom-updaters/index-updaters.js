@@ -1,3 +1,18 @@
+/******************
+*** PAGE HEADER ***
+******************/
+function onLoad_updatePageHeader() {
+    const login_logout = document.getElementById("login-logout");
+    if (UsersManager.isLogged()) {
+        login_logout.innerText = "logout";
+        login_logout.ariaLabel = "Bouton pour se déconnecter"
+    } else {
+        login_logout.innerText = "login";
+        login_logout.ariaLabel = "Bouton pour naviguer vers la page de connexion"
+    }
+}
+/*** END PAGE HEADER ***/
+
 /************************
 *** PORTFOLIO SECTION ***
 ************************/
