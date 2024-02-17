@@ -28,6 +28,7 @@ if (UsersManager.isLogged()) {
                     displayPopoverInfoMessage("Projet supprimé avec succès")
                     await helper_updateModalGallery();
                     await helper_updatePortfolioGallery();
+                    domHelper_addEventListeners_deleteWorkBtn();  // Update Event Listener after deleting a Work
                 } catch (error) {
                     console.error('Error: ', error);
                 }
