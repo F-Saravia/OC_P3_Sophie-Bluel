@@ -6,14 +6,15 @@ if (UsersManager.isLogged()) {
     const closeBtns_AllModals = document.querySelectorAll(".close-all-modals");
     closeBtns_AllModals.forEach((btn) => {
         btn.addEventListener("click", () => {
-            galleryModal.close();
+            helper_resetAddPhotoForm();
             addPhotoModal.close();
+            galleryModal.close();
         })
     })
 
-    /////////////////////////////////
-    //////*** GALLERY MODAL ***//////
-    /////////////////////////////////
+    //////////////////////////////////
+    //////*** MODAL: GALLERY ***//////
+    //////////////////////////////////
 
     const show_GalleryModal = document.getElementById("show-gallery-modal");
 
@@ -34,7 +35,7 @@ if (UsersManager.isLogged()) {
         })
     }
 
-    // Gallery-modal: show & load operations
+    // SHOW gallery modal & LOAD operations
     show_GalleryModal.addEventListener("click", async () => {
         // open gallery modal
         galleryModal.showModal();
@@ -46,27 +47,26 @@ if (UsersManager.isLogged()) {
         domHelper_addEventListeners_deleteWorkBtn();
     })
 
-    // Gallery-modal: close, button 'X'
+    // CLOSE gallery modal
     /* Note:
      * le bouton 'X' de gallery-modal est celui du modal-header commun aux deux vues modales 
      * et il correspond à close-all-modals.
      */
 
-    //Gallery-modal: close on outside-click of the modal window
+    //CLOSE on outside-click of the modal window
     galleryModal.addEventListener("mousedown", (event) => {
         if (event.target == galleryModal) {
             galleryModal.close()
         }
     })
 
-    /////////////////////////////////////
-    //////*** END GALLERY MODAL ***//////
-    /////////////////////////////////////
+    //////////////////////////////////
+    ////*** END MODAL: GALLERY ***////
+    //////////////////////////////////
 
-    ///////////////////////////////////
-    //////*** ADD PHOTO MODAL ***//////
-    ///////////////////////////////////
-
+    ////////////////////////////////////
+    //////*** MODAL: ADD PHOTO ***//////
+    ////////////////////////////////////
     const showBtns_AddPhotoModal = document.querySelectorAll(".showModal-addPhoto");
     const closeBtns_AddPhotoModal = document.querySelectorAll(".closeModal-addPhoto");
 
@@ -81,19 +81,24 @@ if (UsersManager.isLogged()) {
     // SHOW add-photo modal
     showBtns_AddPhotoModal.forEach((btn) => {
         btn.addEventListener("click", async () => {
+            helper_resetAddPhotoForm();
             addPhotoModal.showModal();
+
+            //TODO: enable/disable submit button
         })
     })
 
     // CLOSE add-photo modal
     closeBtns_AddPhotoModal.forEach((btn) => {
         btn.addEventListener("click", () => {
+            helper_resetAddPhotoForm();
             addPhotoModal.close();
         })
     })
     //CLOSE on outside-click of the modal window
     addPhotoModal.addEventListener("mousedown", (event) => {
         if (event.target == addPhotoModal) {
+            helper_resetAddPhotoForm();
             addPhotoModal.close()
         }
     })
@@ -121,9 +126,8 @@ if (UsersManager.isLogged()) {
         const errorMessage = document.getElementById("addPhoto__errorMessage")
 
         try {
-
-            //TODO: image validation
-
+            helper_validateImageInput(file);
+            helper_photoInput_displayPreview(file)
             errorMessage.innerText = "";
             errorMessage.style.display = "none";
         } catch (error) {
@@ -131,14 +135,16 @@ if (UsersManager.isLogged()) {
             errorMessage.innerText = error.message;
             errorMessage.style.display = "block";
         } finally {
-            //enable/disable submit button
-            addPhoto_submitBtn.disabled = !fromValidityState.isFormValid();
+
+            //TODO: enable/disable submit button
+
         }
     });
 
     /** Title input **/
     addPhoto_titleInput.addEventListener("input", event => {
         event.target.reportValidity();
+
         //TODO: enable/disable submit button
     });
 
@@ -155,6 +161,7 @@ if (UsersManager.isLogged()) {
     /** Category input **/
     addPhoto_categorySelect.addEventListener("input", event => {
         event.target.reportValidity();
+
         //TODO: enable/disable submit button
     });
 
@@ -164,7 +171,7 @@ if (UsersManager.isLogged()) {
         const formData = new FormData(addPhoto_form);
         console.log(formData);
     })
-    /////////////////////////////////////
-    /////*** END ADD PHOTO MODAL ***/////
-    /////////////////////////////////////
+    ////////////////////////////////////
+    ////*** END MODAL: ADD PHOTO ***////
+    ////////////////////////////////////
 }

@@ -25,7 +25,8 @@
 }
 
 /*** PHOTO INPUT SECTION: "placeholder" vs preview-file(with changeFile button)***/
-.addPhoto__img-placeholder-container {
+.addPhoto__img-placeholder-container,
+.addPhoto__img-preview-container {
   background-color: #e8f1f6;
   box-sizing: border-box;
   width: 100%;
@@ -44,4 +45,26 @@
   height: 40%;
   font-size: 6rem;
   color: #b9c5cc;
+}
+
+.photoPreview-img {
+  box-sizing: border-box;
+  width: 45%;
+  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.photoPreview-fileName {
+  width: 50%;
+  flex-shrink: 0;
+  color: #1d6154;
+  font-size: 0.8rem;
+  display: -webkit-box;
+  text-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

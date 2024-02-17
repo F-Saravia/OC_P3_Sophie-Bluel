@@ -1,6 +1,6 @@
-/////////////////////////////////
-//////*** GALLERY MODAL ***//////
-/////////////////////////////////
+//////////////////////////////////
+//////*** MODAL: GALLERY ***//////
+//////////////////////////////////
 function helper_createModalWorkCard(jsonWork) {
     const { id, title, imageUrl } = jsonWork;
     let card = document.createElement("figure")
@@ -34,14 +34,55 @@ async function helper_updateModalGallery() {
         helper_populateModalGallery(worksToDisplay);
     }
 }
-/////////////////////////////////////
-//////*** END GALLERY MODAL ***//////
-/////////////////////////////////////
+//////////////////////////////////
+////*** END MODAL: GALLERY ***////
+//////////////////////////////////
 
-///////////////////////////////////
-//////*** ADD PHOTO MODAL ***//////
-///////////////////////////////////
+////////////////////////////////////
+//////*** MODAL: ADD PHOTO ***//////
+////////////////////////////////////
 
+function helper_validateImageInput(file) {
+    //file types allowed -> jpeg, jpg, png
+    const fileTypes = ["image/jpeg", "image/png", "image/jpg"];
+    // max file size -> 4MB
+    const maxFileSize = 4 * 1024 * 1024;
+    if (!fileTypes.includes(file.type)) {
+        throw new CodedError("img-format", "Format non accepté.  Veuillez choisir une image au format .jpeg/.jpg/.png");
+    }
+
+    if (file.size > maxFileSize) {
+        throw new CodedError("img-size", "L'image est trop grande. Maximum 4mo.");
+    }
+    return true;
+}
+
+function helper_resetPhotoInput() {
+    const inputFile = document.getElementById("addPhoto__hidden-img-input")
+    const placeholder = document.querySelector(".addPhoto__img-placeholder-container");
+    const previewContainer = document.querySelector(".addPhoto__img-preview-container");
+    const previewImg = document.querySelector(".addPhoto__img-preview-container img");
+    const previewFileName = document.querySelector(".addPhoto__img-preview-container p");
+
+    placeholder.classList.remove("hidden");
+    previewContainer.classList.add("hidden");
+
+    inputFile.value = "";
+    inputFile.files[0] = null;
+    previewFileName.innerText = "";
+    previewImg.src = "";
+    previewImg.alt = "";
+
+}
+
+function helper_resetAddPhotoForm() {
+    const form_AddPhotoModal = document.querySelector(".addPhoto__form");
+    const errorMessage = document.getElementById("addPhoto__errorMessage")
+    form_AddPhotoModal.reset();
+    helper_resetPhotoInput();
+    errorMessage.innerText = "";
+    errorMessage.style.display = "none";
+}
 
 function helper_createModalSelectOption(jsonCategory) {
     const { id, name } = jsonCategory;
@@ -51,22 +92,19 @@ function helper_createModalSelectOption(jsonCategory) {
     return option;
 }
 
-/////////////////////////////////////
-/////*** END ADD PHOTO MODAL ***/////
-/////////////////////////////////////
+function helper_photoInput_displayPreview(file = null) {
+    const placeholder = document.querySelector(".addPhoto__img-placeholder-container");
+    const previewContainer = document.querySelector(".addPhoto__img-preview-container");
+    const previewImg = document.querySelector(".addPhoto__img-preview-container img");
+    const previewFileName = document.querySelector(".addPhoto__img-preview-container p");
 
- < !--AddPhoto - modal, form -> photo - input part: preview of a selected image-- >
-    <div class="addPhoto__img-preview-container hidden">
-        <img
-            class="photoPreview-img"
-            src=""
-            alt="" />
-        <p class="photoPreview-fileName"></p>
-        <button
-            class="addPhoto__chooseImg-button button-small button-gray"
-            type="button"
-            aria-label="Bouton pour changer la photo selectionnée">
-            <i class="fa-solid fa-file-image"></i>
-            Changer de photo
-        </button>
-    </div>
+    placeholder.classList.add("hidden");
+    previewContainer.classList.remove("hidden");
+    previewFileName.innerText = file.name;
+    previewImg.alt = `Prévisualisation de l'image: ${file.name}`;
+    previewImg.src = URL.createObjectURL(file);
+    previewImg.onload = () => { URL.revokeObjectURL(previewImg.src); };
+}
+////////////////////////////////////
+////*** END MODAL: ADD PHOTO ***////
+////////////////////////////////////
