@@ -77,14 +77,30 @@ if (UsersManager.isLogged()) {
     const addPhoto_categorySelect = document.getElementById("addPhoto__category");
     const addPhoto_submitBtn = document.getElementById("addPhoto__submit");
 
+    const fromValidityState = new FormValidityState([
+        {
+            name: "addPhoto_imgInput",
+            htmlElement: addPhoto_imgInput,
+            customValidation: () => helper_validateImageInput(addPhoto_imgInput.files[0])
+        },
+        {
+            name: "addPhoto_titleInput",
+            htmlElement: addPhoto_titleInput
+        },
+        {
+            name: "addPhoto_categorySelect",
+            htmlElement: addPhoto_categorySelect
+        }
+    ])
+
     /***** AddPhoto Modal: show/close *****/
     // SHOW add-photo modal
     showBtns_AddPhotoModal.forEach((btn) => {
         btn.addEventListener("click", async () => {
             helper_resetAddPhotoForm();
             addPhotoModal.showModal();
-
-            //TODO: enable/disable submit button
+            //enable/disable submit button
+            addPhoto_submitBtn.disabled = !fromValidityState.isFormValid();
         })
     })
 
@@ -126,7 +142,7 @@ if (UsersManager.isLogged()) {
         const errorMessage = document.getElementById("addPhoto__errorMessage")
 
         try {
-            helper_validateImageInput(file);
+            fromValidityState.onInputValidation('addPhoto_imgInput');
             helper_photoInput_displayPreview(file)
             errorMessage.innerText = "";
             errorMessage.style.display = "none";
@@ -135,17 +151,16 @@ if (UsersManager.isLogged()) {
             errorMessage.innerText = error.message;
             errorMessage.style.display = "block";
         } finally {
-
-            //TODO: enable/disable submit button
-
+            //enable/disable submit button
+            addPhoto_submitBtn.disabled = !fromValidityState.isFormValid();
         }
     });
 
     /** Title input **/
     addPhoto_titleInput.addEventListener("input", event => {
-        event.target.reportValidity();
-
-        //TODO: enable/disable submit button
+        fromValidityState.onInputValidation('addPhoto_titleInput');
+        //enable/disable submit button
+        addPhoto_submitBtn.disabled = !fromValidityState.isFormValid();
     });
 
     /** Category: populate select with categories options  **/
@@ -160,16 +175,29 @@ if (UsersManager.isLogged()) {
 
     /** Category input **/
     addPhoto_categorySelect.addEventListener("input", event => {
-        event.target.reportValidity();
-
-        //TODO: enable/disable submit button
+        fromValidityState.onInputValidation('addPhoto_categorySelect');
+        //enable/disable submit button
+        addPhoto_submitBtn.disabled = !fromValidityState.isFormValid();
     });
 
     /** Submit form **/
     addPhoto_form.addEventListener("submit", async (event) => {
         event.preventDefault();
         const formData = new FormData(addPhoto_form);
-        console.log(formData);
+        try {
+            await WorksManager.addWork(formData);
+            displayPopoverInfoMessage("Photo du projet ajoutée avec succès")
+            helper_resetAddPhotoForm();
+            await helper_updateModalGallery();
+            domHelper_addEventListeners_deleteWorkBtn();
+            await helper_updatePortfolioGallery();
+            addPhotoModal.close();
+        } catch (error) {
+            console.error('Error: ', error);
+        } finally {
+            //enable/disable submit button
+            addPhoto_submitBtn.disabled = !fromValidityState.isFormValid();
+        }
     })
     ////////////////////////////////////
     ////*** END MODAL: ADD PHOTO ***////

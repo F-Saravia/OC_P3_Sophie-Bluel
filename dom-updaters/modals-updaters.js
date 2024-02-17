@@ -41,6 +41,48 @@ async function helper_updateModalGallery() {
 ////////////////////////////////////
 //////*** MODAL: ADD PHOTO ***//////
 ////////////////////////////////////
+class FormValidityState {
+    #formFields
+
+    constructor(arrayOfObjects_KEYname_KEYhtmlElement_optionalKEYcustomValidation) {
+        this.#formFields = {};
+        for (const obj of arrayOfObjects_KEYname_KEYhtmlElement_optionalKEYcustomValidation) {
+            this.#formFields[obj.name] = {
+                htmlElement: obj.htmlElement,
+                customValidation: obj.customValidation ? obj.customValidation : (arg) => true,
+                isValid: false,
+            }
+        }
+    }
+
+    isFormValid() {
+        return Object.keys(this.#formFields).reduce(
+            (isFormValid, currentValue) =>
+                isFormValid && this.#formFields[currentValue].isValid
+            , true
+        );
+    }
+
+    onInputValidation(formFieldName) {
+        const formField = this.#formFields[formFieldName];
+        if (!formField) {
+            formField.isValid = false;
+            throw new CodedError("invalid-formFieldID", `FormValidityState: form field ${formFieldName}  does not exist.`);
+        }
+
+        //HTML native validation
+        formField.isValid = !!formField.htmlElement.reportValidity();
+
+        //custom validation
+        try {
+            const customValidity = !!formField.customValidation();
+            formField.isValid &&= customValidity;
+        } catch (error) {
+            formField.isValid = false;
+            throw error
+        }
+    }
+}
 
 function helper_validateImageInput(file) {
     //file types allowed -> jpeg, jpg, png
