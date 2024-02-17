@@ -62,4 +62,109 @@ if (UsersManager.isLogged()) {
     /////////////////////////////////////
     //////*** END GALLERY MODAL ***//////
     /////////////////////////////////////
+
+    ///////////////////////////////////
+    //////*** ADD PHOTO MODAL ***//////
+    ///////////////////////////////////
+
+    const showBtns_AddPhotoModal = document.querySelectorAll(".showModal-addPhoto");
+    const closeBtns_AddPhotoModal = document.querySelectorAll(".closeModal-addPhoto");
+
+    const addPhoto_form = document.querySelector(".addPhoto__form");
+    const addPhoto_choseImgBtns = document.querySelectorAll(".addPhoto__chooseImg-button");
+    const addPhoto_imgInput = document.getElementById("addPhoto__hidden-img-input");
+    const addPhoto_titleInput = document.getElementById("addPhoto__title");
+    const addPhoto_categorySelect = document.getElementById("addPhoto__category");
+    const addPhoto_submitBtn = document.getElementById("addPhoto__submit");
+
+    /***** AddPhoto Modal: show/close *****/
+    // SHOW add-photo modal
+    showBtns_AddPhotoModal.forEach((btn) => {
+        btn.addEventListener("click", async () => {
+            addPhotoModal.showModal();
+        })
+    })
+
+    // CLOSE add-photo modal
+    closeBtns_AddPhotoModal.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            addPhotoModal.close();
+        })
+    })
+    //CLOSE on outside-click of the modal window
+    addPhotoModal.addEventListener("mousedown", (event) => {
+        if (event.target == addPhotoModal) {
+            addPhotoModal.close()
+        }
+    })
+
+    /***** AddPhoto Modal: form *****/
+    /** photo input: placeholder/preview logic
+     * 
+     * 1- Click events: link (add/change)-photo-buttons 'click' event to hidden input[type="file"] 'click' event
+     * 
+     * 2- Change event: use hidden input[type="file"] 'change' event to implement preview operations
+     */
+
+    // 1 - Photo Input: link click events
+    addPhoto_choseImgBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            addPhoto_imgInput.click();
+        })
+    })
+    // 2- Photo Input: validation and preview operation
+    addPhoto_imgInput.addEventListener('input', () => {
+        if (!addPhoto_imgInput.files.length) { return; }
+        const file = addPhoto_imgInput.files[0];
+
+        //cant use built-in setCustomValidity and reportValidity because the input[type='file'] is hidden...
+        const errorMessage = document.getElementById("addPhoto__errorMessage")
+
+        try {
+
+            //TODO: image validation
+
+            errorMessage.innerText = "";
+            errorMessage.style.display = "none";
+        } catch (error) {
+            helper_resetPhotoInput();
+            errorMessage.innerText = error.message;
+            errorMessage.style.display = "block";
+        } finally {
+            //enable/disable submit button
+            addPhoto_submitBtn.disabled = !fromValidityState.isFormValid();
+        }
+    });
+
+    /** Title input **/
+    addPhoto_titleInput.addEventListener("input", event => {
+        event.target.reportValidity();
+        //TODO: enable/disable submit button
+    });
+
+    /** Category: populate select with categories options  **/
+    CategoriesManager.getCategories()
+        .then(categories => {
+            categories.forEach(category => {
+                addPhoto_categorySelect.appendChild(
+                    helper_createModalSelectOption(category)
+                )
+            })
+        })
+
+    /** Category input **/
+    addPhoto_categorySelect.addEventListener("input", event => {
+        event.target.reportValidity();
+        //TODO: enable/disable submit button
+    });
+
+    /** Submit form **/
+    addPhoto_form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const formData = new FormData(addPhoto_form);
+        console.log(formData);
+    })
+    /////////////////////////////////////
+    /////*** END ADD PHOTO MODAL ***/////
+    /////////////////////////////////////
 }

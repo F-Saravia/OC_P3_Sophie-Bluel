@@ -37,3 +37,36 @@ async function helper_updateModalGallery() {
 /////////////////////////////////////
 //////*** END GALLERY MODAL ***//////
 /////////////////////////////////////
+
+///////////////////////////////////
+//////*** ADD PHOTO MODAL ***//////
+///////////////////////////////////
+
+
+function helper_createModalSelectOption(jsonCategory) {
+    const { id, name } = jsonCategory;
+    let option = document.createElement('option');
+    option.value = id;
+    option.innerText = name;
+    return option;
+}
+
+/////////////////////////////////////
+/////*** END ADD PHOTO MODAL ***/////
+/////////////////////////////////////
+
+ < !--AddPhoto - modal, form -> photo - input part: preview of a selected image-- >
+    <div class="addPhoto__img-preview-container hidden">
+        <img
+            class="photoPreview-img"
+            src=""
+            alt="" />
+        <p class="photoPreview-fileName"></p>
+        <button
+            class="addPhoto__chooseImg-button button-small button-gray"
+            type="button"
+            aria-label="Bouton pour changer la photo selectionnée">
+            <i class="fa-solid fa-file-image"></i>
+            Changer de photo
+        </button>
+    </div>

@@ -36,6 +36,9 @@
     <link
       rel="stylesheet"
       href="./assets/modal-gallery.css" />
+    <link
+      rel="stylesheet"
+      href="./assets/modal-addphoto.css" />
 
     <!-- Scripts Utilitaire -->
     <script src="./tools.js"></script>
@@ -242,7 +245,81 @@
 
           <!-- AddPhoto-modal: content (form) -->
           <div class="modal-content">
-            <!-- TODO: form -->
+            <form class="addPhoto__form">
+              <p
+                id="addPhoto__errorMessage"
+                class="error-message"></p>
+              <!-- AddPhoto-modal, form: photo-input part  -->
+              <input
+                name="image"
+                hidden
+                aria-hidden="true"
+                required
+                id="addPhoto__hidden-img-input"
+                class="addPhoto__input"
+                type="file"
+                accept="image/png, image/jpeg, image/jpg"
+                multiple="false" />
+              <!-- AddPhoto-modal, form->photo-input part: div containing (image-icon + addphoto-button + info-text) that acts a "placeholder" until the preview of a selected image -->
+              <div class="addPhoto__img-placeholder-container">
+                <i class="fa-regular fa-image photoPlaceholder-icon"></i>
+                <button
+                  class="addPhoto__chooseImg-button button-large button-gray"
+                  type="button"
+                  aria-label="Bouton pour seléctionner une photo à ajouter dans le formulaire">
+                  <i class="fa-solid fa-plus"></i>
+                  Ajouter une photo
+                </button>
+                <span> jpg, png : 4mo max </span>
+              </div>
+
+              <!-- AddPhoto-modal, form: title-input part  -->
+              <div>
+                <label
+                  for="addPhoto__title"
+                  class="addPhoto__label">
+                  Titre
+                </label>
+                <input
+                  name="title"
+                  required
+                  id="addPhoto__title"
+                  class="addPhoto__input"
+                  type="text" />
+              </div>
+
+              <!-- AddPhoto-modal, form: category-selection part  -->
+              <div>
+                <label
+                  class="addPhoto__label"
+                  for="addPhoto__category">
+                  Catégorie
+                </label>
+                <select
+                  name="category"
+                  required
+                  id="addPhoto__category"
+                  class="addPhoto__input">
+                  <option
+                    selected
+                    disabled
+                    hidden>
+                    Choisir une catégorie...
+                  </option>
+                </select>
+              </div>
+
+              <hr class="divider" />
+
+              <!-- AddPhoto-modal, form: submit -->
+              <input
+                disabled
+                id="addPhoto__submit"
+                class="button-large button-green"
+                type="submit"
+                value="Valider"
+                aria-label="Bouton pour envoyer le formulaire rempli" />
+            </form>
           </div>
         </div>
       </dialog>
