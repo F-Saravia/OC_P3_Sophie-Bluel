@@ -13,9 +13,10 @@ class WorksManager {
         const userToken = ClientStorage.getCurrentUserToken();
         const postedWork = await HTTPRequests.addWork(formData, userToken);
         if (postedWork) {
-            const { categoryId, ...work } = postedWork
-            work.category = await CategoriesManager.getCategoryByID(categoryId);
-            ClientStorage.addWork(work);
+            postedWork.categoryId = parseInt(postedWork.categoryId);
+            const category = await CategoriesManager.getCategoryByID(postedWork.categoryId);
+            postedWork.category = category;
+            ClientStorage.addWork(postedWork);
         }
     }
 
