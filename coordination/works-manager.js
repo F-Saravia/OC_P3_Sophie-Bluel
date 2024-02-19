@@ -9,7 +9,6 @@ class WorksManager {
     }
 
     static async addWork(formData) {
-        console.log(`FormData: ${formData}`)
         const userToken = ClientStorage.getCurrentUserToken();
         const postedWork = await HTTPRequests.addWork(formData, userToken);
         if (postedWork) {
