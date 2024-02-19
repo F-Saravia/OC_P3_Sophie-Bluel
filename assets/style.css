@@ -139,6 +139,9 @@ header {
   justify-content: space-between;
   margin: 50px 0;
 }
+header > a {
+  text-decoration: none;
+}
 section {
   margin: 50px 0;
 }
